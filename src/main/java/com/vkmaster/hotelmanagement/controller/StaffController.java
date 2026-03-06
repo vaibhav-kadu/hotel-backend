@@ -1,7 +1,7 @@
 package com.vkmaster.hotelmanagement.controller;
 
 import com.vkmaster.hotelmanagement.dto.StaffDTO;
-import com.vkmaster.hotelmanagement.entity.Staff;
+import com.vkmaster.hotelmanagement.entity.StaffEntity;
 import com.vkmaster.hotelmanagement.service.StaffService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -19,13 +19,13 @@ public class StaffController {
     }
 
     @PostMapping
-    public ResponseEntity<Staff> createStaff(@Valid @RequestBody StaffDTO dto){
-        Staff staff = staffService.saveStaff(dto);
-        return ResponseEntity.ok(staff);
+    public ResponseEntity<StaffEntity> createStaff(@Valid @RequestBody StaffDTO dto){
+        StaffEntity staffEntity = staffService.saveStaff(dto);
+        return ResponseEntity.ok(staffEntity);
     }
 
     @GetMapping
-    public List<Staff> getAllStaff(){
+    public List<StaffEntity> getAllStaff(){
         return staffService.getAllStaff();
     }
 

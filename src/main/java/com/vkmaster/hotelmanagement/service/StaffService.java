@@ -1,7 +1,7 @@
 package com.vkmaster.hotelmanagement.service;
 
 import com.vkmaster.hotelmanagement.dto.StaffDTO;
-import com.vkmaster.hotelmanagement.entity.Staff;
+import com.vkmaster.hotelmanagement.entity.StaffEntity;
 import com.vkmaster.hotelmanagement.repository.StaffRepository;
 import org.springframework.stereotype.Service;
 
@@ -15,18 +15,18 @@ public class StaffService {
         this.staffRepository = staffRepository;
     }
 
-    public Staff saveStaff(StaffDTO dto){
+    public StaffEntity saveStaff(StaffDTO dto){
 
-        Staff staff = new Staff();
+        StaffEntity staffEntity = new StaffEntity();
 
-        staff.setName(dto.getName());
-        staff.setRole(dto.getRole());
-        staff.setPhone(dto.getPhone());
+        staffEntity.setName(dto.getName());
+        staffEntity.setRole(dto.getRole());
+        staffEntity.setPhone(dto.getPhone());
 
-        return staffRepository.save(staff);
+        return staffRepository.save(staffEntity);
     }
 
-    public List<Staff> getAllStaff(){
+    public List<StaffEntity> getAllStaff(){
         return staffRepository.findAll();
     }
 }
