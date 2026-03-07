@@ -1,7 +1,7 @@
 package com.vkmaster.hotelmanagement.controller;
 
 import com.vkmaster.hotelmanagement.dto.MenuItemDTO;
-import com.vkmaster.hotelmanagement.entity.MenuItem;
+import com.vkmaster.hotelmanagement.entity.MenuItemEntity;
 import com.vkmaster.hotelmanagement.service.MenuService;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,12 +18,12 @@ public class MenuController {
     }
 
     @PostMapping
-    public MenuItem createMenuItem(@RequestBody MenuItemDTO dto){
+    public MenuItemEntity createMenuItem(@RequestBody MenuItemDTO dto){
         return menuService.createMenuItem(dto);
     }
 
     @GetMapping
-    public List<MenuItem> getMenu(){
+    public List<MenuItemEntity> getMenu(){
         return menuService.getMenu();
     }
 }

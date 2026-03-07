@@ -1,7 +1,7 @@
 package com.vkmaster.hotelmanagement.service;
 
 import com.vkmaster.hotelmanagement.dto.MenuItemDTO;
-import com.vkmaster.hotelmanagement.entity.MenuItem;
+import com.vkmaster.hotelmanagement.entity.MenuItemEntity;
 import com.vkmaster.hotelmanagement.repository.MenuRepository;
 import org.springframework.stereotype.*;
 
@@ -16,9 +16,9 @@ public class MenuService {
         this.menuRepository=menuRepository;
     }
 
-    public MenuItem createMenuItem(MenuItemDTO dto){
+    public MenuItemEntity createMenuItem(MenuItemDTO dto){
 
-        MenuItem item = new MenuItem();
+        MenuItemEntity item = new MenuItemEntity();
 
         item.setName(dto.getName());
         item.setCategory(dto.getCategory());
@@ -28,7 +28,7 @@ public class MenuService {
         return menuRepository.save(item);
     }
 
-    public List<MenuItem> getMenu(){
+    public List<MenuItemEntity> getMenu(){
         return  menuRepository.findAll();
     }
 }

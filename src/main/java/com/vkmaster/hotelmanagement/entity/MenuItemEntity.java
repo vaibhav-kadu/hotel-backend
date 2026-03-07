@@ -8,7 +8,7 @@ import lombok.*;
 @Entity
 @Table(name="menu_items")
 
-public class MenuItem {
+public class MenuItemEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +18,7 @@ public class MenuItem {
     private String category;
     private double price;
     private boolean available;
-    public MenuItem(){}
+    public MenuItemEntity(){}
 
 
 }
