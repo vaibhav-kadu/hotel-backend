@@ -2,6 +2,7 @@ package com.vkmaster.hotelmanagement.controller;
 
 import com.vkmaster.hotelmanagement.dto.OrderRequestDTO;
 import com.vkmaster.hotelmanagement.entity.OrderEntity;
+import com.vkmaster.hotelmanagement.entity.OrderStatusEntity;
 import com.vkmaster.hotelmanagement.service.OrderService;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,8 +23,13 @@ public class OrderController {
         return orderService.createOrder(dto);
     }
 
-    @GetMapping
-    public List<OrderEntity> getOrders(){
-        return orderService.getOrders();
+    @PutMapping("/{id}/status")
+    public OrderEntity updateStatus(@PathVariable Long id, @RequestParam OrderStatusEntity status){
+        return orderService.updateOrderStatus(id, status);
+    }
+
+    @GetMapping("/status/{status}")
+    public List<OrderEntity> getOrdersByStatus(@PathVariable OrderStatusEntity status){
+        return orderService.getOrdersByStatus(status);
     }
 }

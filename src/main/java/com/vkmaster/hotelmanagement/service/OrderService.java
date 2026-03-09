@@ -14,13 +14,13 @@ public class OrderService {
 
     private final TableRepository tableRepository;
     private final MenuRepository menuRepository;
-    private final OrderEntityRepository orderEntityRepository;
+    private final OrderRepository orderRepository;
 
     public OrderService(TableRepository tableRepository,
-                        MenuRepository menuRepository, OrderEntityRepository orderEntityRepository){
+                        MenuRepository menuRepository, OrderRepository orderRepository){
         this.tableRepository=tableRepository;
         this.menuRepository=menuRepository;
-        this.orderEntityRepository = orderEntityRepository;
+        this.orderRepository = orderRepository;
     }
 
     public OrderEntity createOrder(OrderRequestDTO dto){
@@ -29,7 +29,7 @@ public class OrderService {
 
         OrderEntity order = new OrderEntity();
         order.setTable(table);
-        order.setStatus("CREATED");
+        order.setStatus(OrderStatusEntity.CREATED);
         order.setCreatedTime(LocalDateTime.now());
 
         List<OrderItemEntity> orderItems = new ArrayList<>();
@@ -48,10 +48,17 @@ public class OrderService {
 
         order.setItems(orderItems);
 
-        return orderEntityRepository.save(order);
+        return orderRepository.save(order);
     }
 
-    public List<OrderEntity> getOrders(){
-        return orderEntityRepository.findAll();
+    public OrderEntity updateOrderStatus(Long orderId, OrderStatusEntity status){
+        OrderEntity order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order Not Found"));
+        order.setStatus(status);
+        return orderRepository.save(order);
+    }
+
+    public List<OrderEntity> getOrdersByStatus(OrderStatusEntity status){
+        return orderRepository.findByStatus(status);
     }
 }
