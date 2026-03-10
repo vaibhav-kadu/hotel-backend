@@ -1,5 +1,10 @@
 package com.vkmaster.hotelmanagement.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class LoginRequestDTO {
 
     private String username;
