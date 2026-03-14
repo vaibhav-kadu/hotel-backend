@@ -3,6 +3,7 @@ package com.vkmaster.hotelmanagement.controller;
 import com.vkmaster.hotelmanagement.dto.MenuItemDTO;
 import com.vkmaster.hotelmanagement.entity.MenuItemEntity;
 import com.vkmaster.hotelmanagement.service.MenuService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,8 +18,10 @@ public class MenuController {
         this.menuService=menuService;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public MenuItemEntity createMenuItem(@RequestBody MenuItemDTO dto){
+
         return menuService.createMenuItem(dto);
     }
 

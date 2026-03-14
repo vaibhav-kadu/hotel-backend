@@ -12,19 +12,24 @@ public class JwtUtil {
 
     private final SecretKey SECRET_KEY = Keys.hmacShaKeyFor("mySuperSecretKeyForHotelManagementSystem12345".getBytes());
 
-    public String generateToken(String username){
+    public String generateToken(String username, String role){
 
         return Jwts.builder()
                 .setSubject(username)
+                .claim("role", role)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis()+ 86400000))
-                .signWith(SECRET_KEY)
+                .signWith(SECRET_KEY, SignatureAlgorithm.HS256)
                 .compact();
     }
 
     public String extractUsername(String token){
 
         return extractClaims(token).getSubject();
+    }
+
+    public String extractRole(String token){
+        return extractClaims(token).get("role", String.class);
     }
 
     public  boolean validateToken(String token){

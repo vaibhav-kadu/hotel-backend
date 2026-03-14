@@ -4,6 +4,7 @@ import com.vkmaster.hotelmanagement.dto.OrderRequestDTO;
 import com.vkmaster.hotelmanagement.entity.OrderEntity;
 import com.vkmaster.hotelmanagement.entity.OrderStatusEntity;
 import com.vkmaster.hotelmanagement.service.OrderService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,11 +19,13 @@ public class OrderController {
         this.orderService=orderService;
     }
 
+    @PreAuthorize("hasRole('WAITER')")
     @PostMapping
     public OrderEntity createOrder(@RequestBody OrderRequestDTO dto){
         return orderService.createOrder(dto);
     }
 
+    @PreAuthorize("hasRole('CHEF')")
     @PutMapping("/{id}/status")
     public OrderEntity updateStatus(@PathVariable Long id, @RequestParam OrderStatusEntity status){
         return orderService.updateOrderStatus(id, status);
