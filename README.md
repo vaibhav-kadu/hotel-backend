@@ -1,51 +1,224 @@
-🔹 Project Title
+<h1 align="center">🏨 Smart Hotel Management System</h1>
 
-Smart Hotel Management System (Restaurant Order Automation System)
+<p align="center">
+Backend system to manage restaurant operations, hotel bookings, and event hall reservations
+</p>
 
-🔹 Project Description (Short Version – Recommended for Naukri)
+<p align="center">
 
-Developed a full-stack Hotel Management System that automates restaurant order processing between Waiter, Chef, and Billing Counter. The system allows waiters to take table-wise orders digitally, which are instantly sent to the kitchen dashboard. After order completion, the billing counter can generate a complete invoice based on the table number.
+![Java](https://img.shields.io/badge/Java-17-orange)
+![Spring Boot](https://img.shields.io/badge/SpringBoot-Framework-brightgreen)
+![MySQL](https://img.shields.io/badge/Database-MySQL-blue)
+![JWT](https://img.shields.io/badge/Auth-JWT-yellow)
+![Status](https://img.shields.io/badge/Status-Active-success)
 
-Implemented secure authentication using JWT and role-based access (Admin, Waiter, Chef, Billing Staff). Designed RESTful APIs using Node.js and Express, with MySQL database integration and proper relational table structure.
+</p>
 
-🔹 Detailed Description (Long Version – If space allows)
+---
 
-Built a production-level Hotel Management System to streamline restaurant operations. The system includes three major modules:
+# 📌 Project Overview
 
-• Order Manager (Waiter Panel) – Takes table number, number of guests, and food items
-• Kitchen Dashboard (Chef Panel) – Receives real-time table-wise orders
-• Billing Counter – Generates final bill based on table number and ordered items
+The **Smart Hotel Management System** is a backend application designed to automate **hotel and restaurant operations**.
 
-🔹 Key Features:
+The system manages:
 
-Role-based login (Admin, Waiter, Chef, Billing)
+* 🍽 Restaurant orders
+* 🏨 Hotel room bookings
+* 🎉 Event hall reservations
 
-Real-time order flow from waiter to kitchen
+It also maintains **secure role-based access control** for different staff members.
 
-Table-wise order tracking
+The backend is built using **Spring Boot with a layered MVC architecture**, providing scalable, secure, and maintainable REST APIs.
 
-Dynamic bill generation with total calculation
+---
 
-Secure password storage using bcrypt
+# 📖 Project Description
 
-JWT-based authentication and authorization
+This system digitizes hotel operations including:
 
-Proper database normalization and foreign key relationships
+* Restaurant order management
+* Kitchen workflow
+* Room booking
+* Event hall reservations
 
-Error handling and API validation
+Restaurant staff can take **table-wise orders**, which are instantly sent to the **kitchen dashboard**.
 
-Clean MVC folder structure
+The system tracks order status through the workflow:
 
-🔹 Technology Stack:
+```
+CREATED → PREPARING → READY → SERVED
+```
 
-Frontend: REACT JS, HTML, CSS, Bootstrap, EJS
+The platform also supports:
 
-Backend: Node.js, Express.js
+* Guest management
+* Room reservations
+* Event hall bookings for functions such as weddings, birthdays, and corporate meetings.
 
-Database: MySQL
+Authentication and authorization are implemented using **JWT-based security with Role-Based Access Control (RBAC)**.
 
-Authentication: JWT, bcrypt
+---
 
-Tools: Git, GitHub, Nodemon, dotenv
+# ✨ Key Features
 
-APIs: RESTful APIs (GET, POST, PUT, DELETE)
+## 🍽 Restaurant Management
+
+* Table management
+* Menu management
+* Order creation and tracking
+* Kitchen dashboard workflow
+* Order status management
+
+```
+CREATED → PREPARING → READY → SERVED
+```
+
+---
+
+## 🏨 Hotel Management
+
+* Customer / Guest management
+* Room management *(Planned)*
+* Room booking with check-in and check-out
+
+---
+
+## 🎉 Event Management
+
+* Party hall management *(Planned)*
+* Event booking for functions
+* Optional food service integration with restaurant menu
+
+---
+
+## 🔐 Security
+
+* JWT-based authentication
+* Role-Based Access Control (RBAC)
+* Secure password encryption using BCrypt
+
+---
+
+## 🏗 System Architecture
+
+* Layered MVC architecture
+* RESTful API design
+* Relational database design with foreign key relationships
+* DTO-based request validation
+* Global exception handling
+
+---
+
+# 👥 Roles in the System
+
+| Role            | Responsibilities                             |
+| --------------- | -------------------------------------------- |
+| **ADMIN**       | Manage menu, staff, and system configuration |
+| **WAITER**      | Take customer orders                         |
+| **CHEF**        | Manage kitchen order status                  |
+| **BILLING**     | Generate invoices                            |
+| **HOTEL STAFF** | Manage room and hall bookings                |
+
+---
+
+# ⚙ Technology Stack
+
+## Backend
+
+* **Java**
+* **Spring Boot**
+* **Spring Security**
+* **Spring Data JPA / Hibernate**
+
+## Database
+
+* **MySQL**
+
+## Authentication
+
+* **JWT (JSON Web Token)**
+* **BCrypt Password Encryption**
+
+## Tools & Environment
+
+* **IntelliJ IDEA**
+* **Maven**
+* **Git**
+* **GitHub**
+* **Postman**
+
+---
+
+# 🏗 Project Architecture
+
+The backend follows a **Layered MVC Architecture**.
+
+### Folder Structure
+
+```
+controller
+service
+repository
+entity
+dto
+security
+config
+util
+exception
+```
+
+### Request Flow
+
+```
+Client
+  ↓
+Controller
+  ↓
+Service
+  ↓
+Repository
+  ↓
+Database
+```
+
+---
+
+# 📦 Implemented Modules
+
+✅ Staff Management
+✅ Table Management
+✅ Menu Management
+✅ Order Management
+✅ Kitchen Workflow
+✅ JWT Authentication
+✅ Role-Based Access Control
+✅ Customer Management
+
+---
+
+# 🚧 Modules In Progress
+
+🔄 Room Management
+🔄 Room Booking System
+🔄 Event Hall Management
+🔄 Billing System
+
+---
+
+# 🚀 Future Improvements
+
+* Online room reservation
+* Payment gateway integration
+* Hotel billing module
+* Admin dashboard
+* API documentation with Swagger
+* Frontend web dashboard
+
+---
+
+# 👨‍💻 Author
+
+**Vaibhav K**
+
+Backend Developer
+Java | Spring Boot | REST API
