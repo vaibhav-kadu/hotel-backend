@@ -38,7 +38,7 @@ Clean MVC folder structure
 
 🔹 Technology Stack:
 
-Frontend: HTML, CSS, Bootstrap, EJS
+Frontend: REACT JS, HTML, CSS, Bootstrap, EJS
 
 Backend: Node.js, Express.js
 
