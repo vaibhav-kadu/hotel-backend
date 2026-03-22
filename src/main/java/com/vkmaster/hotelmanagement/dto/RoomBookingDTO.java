@@ -1,22 +1,25 @@
 package com.vkmaster.hotelmanagement.dto;
 
-import com.vkmaster.hotelmanagement.entity.RoomType;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
-public class RoomDTO {
+public class RoomBookingDTO {
 
     @NotNull
-    private Integer roomNumber;
+    private Long roomId;
 
     @NotNull
-    private RoomType roomType;
+    private Long customer_id;
 
     @NotNull
-    private Double pricePerDay;
+    private LocalDate checkIn;
 
-    public  RoomDTO(){}
+    @NotNull
+    private LocalDate checkOut;
+
 }
