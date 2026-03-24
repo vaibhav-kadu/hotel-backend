@@ -3,10 +3,8 @@ package com.vkmaster.hotelmanagement.controller;
 import com.vkmaster.hotelmanagement.dto.RoomBookingDTO;
 import com.vkmaster.hotelmanagement.entity.RoomBooking;
 import com.vkmaster.hotelmanagement.service.RoomBookingService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/room-bookings")
@@ -21,5 +19,11 @@ public class RoomBookingController {
     @PostMapping
     public RoomBooking createBooking(@RequestBody RoomBookingDTO dto){
         return  bookingService.createBooking(dto);
+    }
+
+    @PreAuthorize("hasRole('HOTEL_STAFF')")
+    @PutMapping(name = "/{id}/checkout")
+    public RoomBooking checkout(@PathVariable Long id){
+        return bookingService.checkout(id);
     }
 }

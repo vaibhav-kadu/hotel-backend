@@ -55,4 +55,25 @@ public class RoomBookingService {
 
         return  bookingRepository.save(booking);
     }
+
+    public RoomBooking checkout(Long bookingId){
+        RoomBooking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new RuntimeException("Booking not found"));
+
+        if(booking.getStatus() != BookingStatus.BOOKED &&
+            booking.getStatus() != BookingStatus.CHECKED_IN){
+            throw new RuntimeException("Invalid booking status for");
+        }
+
+        booking.setStatus(BookingStatus.CHECKED_OUT);
+
+        Room room = booking.getRoom();
+            room.setStatus(RoomStatus.AVAILABLE);
+
+        roomRepository.save(room);
+
+        return bookingRepository.save(booking);
+
+    }
+
 }
