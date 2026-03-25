@@ -62,7 +62,7 @@ public class RoomBookingService {
 
         if(booking.getStatus() != BookingStatus.BOOKED &&
             booking.getStatus() != BookingStatus.CHECKED_IN){
-            throw new RuntimeException("Invalid booking status for");
+            throw new RuntimeException("Invalid booking status for checkout");
         }
 
         booking.setStatus(BookingStatus.CHECKED_OUT);
