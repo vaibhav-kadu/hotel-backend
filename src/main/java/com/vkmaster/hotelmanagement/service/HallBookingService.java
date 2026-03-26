@@ -27,33 +27,62 @@ public class HallBookingService {
 
     public HallBooking createBooking(HallBookingDTO dto){
 
-        Hall hall = hallRepository.findById(dto.getHallId())
+       Hall hall = getHall(dto.getHallId());
+       Customer customer = getCustomer(dto.getCustomerId());
+
+       validateHallAvailability(hall);
+
+       double total = calculateTotal(hall, dto.isFoodRequired());
+
+       HallBooking booking = buildBooking(dto, hall, customer, total);
+
+       updateHallAvailability(hall);
+
+       return bookingRepository.save(booking);
+    }
+
+    private Hall getHall(Long id){
+        return hallRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Hall not found"));
+    }
 
-        Customer customer = customerRepository.findById(dto.getCustomerId())
+    private Customer getCustomer(Long id){
+        return customerRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Customer not found"));
+    }
 
+    private void validateHallAvailability(Hall hall){
         if(!hall.isAvailable()){
-            throw new RuntimeException("Hall not available");
+            throw  new RuntimeException("Hall not available");
         }
+    }
 
+    private double calculateTotal(Hall hall, boolean foodRequired){
         double total = hall.getPricePerDay();
 
-        if(dto.isFoodRequired()){
-            total += 5000;  // Simple food Charges
+        if(foodRequired){
+            total += 5000;  //Increase Price As Per Food for Hall
         }
 
-        HallBooking booking = new HallBooking();
-            booking.setHall(hall);
-            booking.setCustomer(customer);
-            booking.setEventDate(dto.getEventDate());
-            booking.setEventType(dto.getEventType());
-            booking.setFoodRequired(dto.isFoodRequired());
-            booking.setTotalAmount(total);
-            booking.setStatus(HallBookingStatus.BOOKED);
+        return total;
+    }
 
+    private HallBooking buildBooking(HallBookingDTO dto, Hall hall, Customer customer, double total){
+
+        HallBooking booking = new HallBooking();
+        booking.setHall(hall);
+        booking.setCustomer(customer);
+        booking.setEventDate(dto.getEventDate());
+        booking.setEventType(dto.getEventType());
+        booking.setFoodRequired(dto.isFoodRequired());
+        booking.setTotalAmount(total);
+        booking.setStatus(HallBookingStatus.BOOKED);
+
+        return booking;
+    }
+
+    private void  updateHallAvailability(Hall hall){
         hall.setAvailable(false);
         hallRepository.save(hall);
-        return bookingRepository.save(booking);
     }
 }
