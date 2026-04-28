@@ -2,6 +2,7 @@ package com.vkmaster.hotelmanagement.controller;
 
 import com.vkmaster.hotelmanagement.dto.CustomerDTO;
 import com.vkmaster.hotelmanagement.entity.Customer;
+import com.vkmaster.hotelmanagement.payload.ApiResponse;
 import com.vkmaster.hotelmanagement.service.CustomerService;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +19,15 @@ public class CustomerController {
     }
 
     @PostMapping
-    public Customer createCustomer(@RequestBody CustomerDTO dto){
-        return customerService.createCustomer(dto);
+    public ApiResponse<Customer> createCustomer(@RequestBody CustomerDTO dto){
+
+        Customer customer = customerService.createCustomer(dto);
+
+        return new ApiResponse<>(
+                true,
+                "Customer created successfully",
+                customer
+        );
     }
 
     @GetMapping

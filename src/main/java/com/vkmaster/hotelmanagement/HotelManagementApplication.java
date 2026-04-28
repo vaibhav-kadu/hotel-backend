@@ -13,7 +13,8 @@ HotelManagementApplication {
         System.out.println("=====================***************************   vk  =====================***************************");
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        System.out.println(encoder.encode("123456"));
+        System.out.println(encoder.encode("chef1"));
+        System.out.println();
 
     }
 

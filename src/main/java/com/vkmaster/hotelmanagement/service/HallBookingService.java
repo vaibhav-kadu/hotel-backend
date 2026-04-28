@@ -5,6 +5,8 @@ import com.vkmaster.hotelmanagement.entity.Customer;
 import com.vkmaster.hotelmanagement.entity.Hall;
 import com.vkmaster.hotelmanagement.entity.HallBooking;
 import com.vkmaster.hotelmanagement.entity.HallBookingStatus;
+import com.vkmaster.hotelmanagement.exception.BadRequestException;
+import com.vkmaster.hotelmanagement.exception.ResourceNotFoundException;
 import com.vkmaster.hotelmanagement.repository.CustomerRepository;
 import com.vkmaster.hotelmanagement.repository.HallBookingRepository;
 import com.vkmaster.hotelmanagement.repository.HallRepository;
@@ -43,17 +45,17 @@ public class HallBookingService {
 
     private Hall getHall(Long id){
         return hallRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Hall not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Hall not found"));
     }
 
     private Customer getCustomer(Long id){
         return customerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Customer not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Customer not found"));
     }
 
     private void validateHallAvailability(Hall hall){
         if(!hall.isAvailable()){
-            throw  new RuntimeException("Hall not available");
+            throw  new BadRequestException("Hall not available");
         }
     }
 

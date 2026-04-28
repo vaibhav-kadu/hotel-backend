@@ -2,6 +2,7 @@ package com.vkmaster.hotelmanagement.service;
 
 import com.vkmaster.hotelmanagement.dto.*;
 import com.vkmaster.hotelmanagement.entity.*;
+import com.vkmaster.hotelmanagement.exception.ResourceNotFoundException;
 import com.vkmaster.hotelmanagement.repository.*;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,7 @@ public class OrderService {
 
     public OrderEntity createOrder(OrderRequestDTO dto){
         TableEntity table = tableRepository.findById(dto.getTableId())
-                .orElseThrow(()-> new RuntimeException("Table Not Found"));
+                .orElseThrow(()-> new ResourceNotFoundException("Table Not Found"));
 
         OrderEntity order = new OrderEntity();
         order.setTable(table);
@@ -36,7 +37,7 @@ public class OrderService {
 
         for(OrderItemDTO itemDTO : dto.getItems()){
             MenuItemEntity menuItem = menuRepository.findById(itemDTO.getMenuItemId())
-                    .orElseThrow(()-> new RuntimeException("Menu Item not found"));
+                    .orElseThrow(()-> new ResourceNotFoundException("Menu Item not found"));
 
             OrderItemEntity item = new OrderItemEntity();
             item.setMenuItem(menuItem);
@@ -53,7 +54,7 @@ public class OrderService {
 
     public OrderEntity updateOrderStatus(Long orderId, OrderStatusEntity status){
         OrderEntity order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new RuntimeException("Order Not Found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Order Not Found"));
         order.setStatus(status);
         return orderRepository.save(order);
     }

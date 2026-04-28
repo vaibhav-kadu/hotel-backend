@@ -2,6 +2,8 @@ package com.vkmaster.hotelmanagement.service;
 
 import com.vkmaster.hotelmanagement.dto.RoomBookingDTO;
 import com.vkmaster.hotelmanagement.entity.*;
+import com.vkmaster.hotelmanagement.exception.BadRequestException;
+import com.vkmaster.hotelmanagement.exception.ResourceNotFoundException;
 import com.vkmaster.hotelmanagement.repository.CustomerRepository;
 import com.vkmaster.hotelmanagement.repository.RoomBookingRepository;
 import com.vkmaster.hotelmanagement.repository.RoomRepository;
@@ -28,13 +30,13 @@ public class RoomBookingService {
 
     public RoomBooking createBooking(RoomBookingDTO dto){
         Room room = roomRepository.findById(dto.getRoomId())
-                .orElseThrow(() -> new RuntimeException("Room not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Room not found"));
 
         Customer customer = customerRepository.findById(dto.getCustomer_id())
-                .orElseThrow(() -> new RuntimeException("Customer not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Customer not found"));
 
         if(room.getStatus() != RoomStatus.AVAILABLE){
-            throw new RuntimeException("Room is not available");
+            throw new BadRequestException("Room is not available");
         }
 
         Long days = ChronoUnit.DAYS.between(dto.getCheckIn(), dto.getCheckOut());
@@ -58,11 +60,11 @@ public class RoomBookingService {
 
     public RoomBooking checkout(Long bookingId){
         RoomBooking booking = bookingRepository.findById(bookingId)
-                .orElseThrow(() -> new RuntimeException("Booking not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Booking not found"));
 
         if(booking.getStatus() != BookingStatus.BOOKED &&
             booking.getStatus() != BookingStatus.CHECKED_IN){
-            throw new RuntimeException("Invalid booking status for checkout");
+            throw new BadRequestException("Invalid booking status for checkout");
         }
 
         booking.setStatus(BookingStatus.CHECKED_OUT);

@@ -2,6 +2,8 @@ package com.vkmaster.hotelmanagement.service;
 
 import com.vkmaster.hotelmanagement.dto.LoginRequestDTO;
 import com.vkmaster.hotelmanagement.entity.UserEntity;
+import com.vkmaster.hotelmanagement.exception.ResourceNotFoundException;
+import com.vkmaster.hotelmanagement.exception.UnauthorizedException;
 import com.vkmaster.hotelmanagement.repository.UserRepository;
 import com.vkmaster.hotelmanagement.util.JwtUtil;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -25,11 +27,11 @@ public class AuthService {
     public String login(LoginRequestDTO requestDTO){
 
         UserEntity user = userRepository.findByUsername(requestDTO.getUsername())
-                .orElseThrow(()-> new RuntimeException("User not found"));
+                .orElseThrow(()-> new ResourceNotFoundException("User not found"));
 
 
         if(!passwordEncoder.matches(requestDTO.getPassword(), user.getPassword())){
-            throw  new RuntimeException("Invalid password");
+            throw  new UnauthorizedException("Invalid password");
         }
 
         return jwtUtil.generateToken(user.getUsername(), user.getRole());

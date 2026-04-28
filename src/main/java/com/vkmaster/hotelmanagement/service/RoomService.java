@@ -3,6 +3,7 @@ package com.vkmaster.hotelmanagement.service;
 import com.vkmaster.hotelmanagement.dto.RoomDTO;
 import com.vkmaster.hotelmanagement.entity.Room;
 import com.vkmaster.hotelmanagement.entity.RoomStatus;
+import com.vkmaster.hotelmanagement.exception.BadRequestException;
 import com.vkmaster.hotelmanagement.repository.RoomRepository;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class RoomService {
 
         roomRepository.findByRoomNumber(dto.getRoomNumber())
                 .ifPresent(room -> {
-                    throw new RuntimeException("Room number already exists");
+                    throw new BadRequestException("Room number already exists");
                 });
 
         Room room = new Room();
